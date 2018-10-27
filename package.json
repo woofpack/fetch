@@ -16,6 +16,9 @@
     "express": "^4.16.4",
     "helmet": "^3.14.0",
     "mongoose": "^5.3.7",
+    "node-geocoder": "^3.22.0",
+    "querystring": "^0.2.0",
+    "string-similarity": "^2.0.0",
     "uuid": "^3.3.2"
   }
 }
