@@ -1,10 +1,10 @@
 import { Router } from "express";
 import spot from "../controllers/spot";
-import fetch from "../controllers/fetch";
+import woof from "../controllers/woof";
 
 const apiRouter = Router();
 
-apiRouter.get("/fetch", fetch.read);
+apiRouter.get("/woof", woof.read);
 
 apiRouter.post("/spot", spot.create);
 
