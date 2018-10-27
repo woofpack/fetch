@@ -1,19 +1,15 @@
-import axios from 'axios';
-import url from 'url';
-
-const {GOOGLE_URL, GOOGLE_KEY } = process.env;
-const gi = axios.create({baseURL: `GOOGLE_URLkey=${GOOGLE_KEY}`});
+import scraper from 'google-search-scraper';
 
 const getShelterSite = (shelterName) => 
   new Promise(async(resolve, reject) => {
-    const parseShelter = url.parse(shelterName).path;
-    try{
-        const data = await gi.get(`&q=${parseShelter}`);
-        console.log(data);
-        resolve(data);
-    } catch (e) {
-        reject(e);
-    }
+    const options = {
+      query: shelterName,
+      limit: 1
+    };
+    scraper.search(options, function(err, url) {
+      if(err) reject(err);
+      resolve(url);
+    });
 
   });
 

@@ -20,14 +20,11 @@ const create = async (req, res) => {
     const fuzzyBreed = await bread.fuzzySearch(breed, breeds);
     const parseBreed = urlParse.parse(fuzzyBreed).path;
     const dog = await fetch.getDog(parseBreed, zip);
-    console.log(dog);
-
     const { latitude, longitude, name } = await fetch.getShelter(
       dog.shelterId.$t
     );
     
     const shelterUrl = await search.getShelterSite(name.$t);
-    console.log("shelter", shelterUrl)
 
     const payload = {
       lat: latitude.$t,
@@ -41,11 +38,9 @@ const create = async (req, res) => {
         status: dog.status.$t,
         age: dog.age.$t,
         photo: dog.media.photos.photo[0].$t,
-        url: 'https://www.peggyadams.org/'
+        url: shelterUrl
       }
     };
-
-    console.log(payload);
 
     res.status(200).send(payload);
   } catch (e) {
