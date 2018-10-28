@@ -27,7 +27,7 @@ _returns_
 
 ---
 
-- `GET /api/fetch`
+- `GET /api/woof`
 
 Get all woofs
 

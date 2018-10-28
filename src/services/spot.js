@@ -1,12 +1,20 @@
 import cloudinary from "cloudinary";
+import axios from "axios";
 
-const { CLOUDINARY_SECRET, CLOUDINARY_KEY, CLOUDINARY_BUCKET } = process.env;
+const {
+  CLOUDINARY_SECRET,
+  CLOUDINARY_KEY,
+  CLOUDINARY_BUCKET,
+  CLASSIFY_URL
+} = process.env;
 
 cloudinary.config({
   cloud_name: CLOUDINARY_BUCKET,
   api_key: CLOUDINARY_KEY,
   api_secret: CLOUDINARY_SECRET
 });
+
+const si = axios.create({ baseURL: CLASSIFY_URL });
 
 const uploadCloudinary = path =>
   new Promise((resolve, reject) => {
@@ -27,4 +35,14 @@ const upload = path =>
     }
   });
 
-export default { upload };
+const classify = url =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { data } = await si.post("/dog", { url });
+      resolve(data);
+    } catch (e) {
+      reject(e);
+    }
+  });
+
+export default { upload, classify };

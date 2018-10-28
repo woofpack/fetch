@@ -5,7 +5,7 @@ const read = async (req, res) => {
     const woofs = await woof.find().sort({ timestamp: -1 });
     res.send({ woofs });
   } catch (e) {
-    res.sttaus(400).send(e.message);
+    res.status(400).send(e.message);
   }
 };
 
